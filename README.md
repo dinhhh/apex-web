@@ -71,9 +71,23 @@ generated, so run `npm run build` after adding images (or set
 ## Booking API
 
 `POST /api/bookings` accepts a `BookingRequest` JSON body, validates it server-side,
-rejects spam via a honeypot field, and returns a `BookingResponse` with a reference code.
-Wire up email/CRM delivery where marked with `TODO` in
-[`src/app/api/bookings/route.ts`](src/app/api/bookings/route.ts).
+rejects spam via a honeypot field, emails the request to the business, and returns a
+`BookingResponse` with a reference code.
+
+### Booking emails
+
+Every submitted booking / quote request is emailed to `BOOKINGS_TO`
+(defaults to `site.email`) by [`src/lib/email.ts`](src/lib/email.ts) via SMTP.
+
+1. `cp .env.example .env.local`
+2. For Gmail: enable 2-Step Verification, then create an **App Password** at
+   <https://myaccount.google.com/apppasswords> and put it in `SMTP_PASS`.
+3. Set `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` (and optionally
+   `SMTP_FROM`, `BOOKINGS_TO`).
+
+The customer's email address (if given) is set as `Reply-To`, so hitting reply
+in the inbox replies straight to them. If SMTP is not configured the request
+still succeeds and the full payload is logged to the server console.
 
 ## Accessibility & SEO
 

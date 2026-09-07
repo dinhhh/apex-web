@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { addOns, getPackage } from "@/lib/packages";
+import { sendBookingEmail } from "@/lib/email";
 import type { BookingRequest, BookingResponse } from "@/types/detailing";
 
 export const runtime = "nodejs";
@@ -81,8 +82,20 @@ export async function POST(request: Request): Promise<NextResponse<BookingRespon
     addOns.some((a) => a.id === id),
   );
 
-  // In production, send to a CRM / email / database here.
-  // e.g. await sendBookingEmail({ ...payload, addOnIds: validAddOns, reference: ref });
+  const booking = {
+    ...(payload as BookingRequest),
+    addOnIds: validAddOns,
+    reference: ref,
+  };
+
+  try {
+    await sendBookingEmail(booking);
+  } catch (error) {
+    // Don't fail the customer's request if the mail server hiccups — log it so
+    // the lead can still be recovered from server logs.
+    console.error("[booking] email dispatch failed", ref, error);
+  }
+
   console.info("[booking] new enquiry", {
     reference: ref,
     package: payload.packageId,

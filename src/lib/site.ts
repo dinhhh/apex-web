@@ -16,9 +16,8 @@ export const site = {
   email: "apexcardetailing.info@gmail.com",
   region: "Sydney, NSW, Australia",
   hours: [
-    { day: "Monday – Friday", time: "9:00 AM – 6:00 PM" },
-    { day: "Saturday", time: "7:00 AM – 5:00 PM" },
-    { day: "Sunday", time: "By appointment" },
+    { day: "Monday – Wednesday", time: "9:00 AM – 6:00 PM" },
+    { day: "Saturday - Sunday", time: "7:00 AM – 5:00 PM" }
   ],
   serviceAreas: [
     "Sydney CBD",
