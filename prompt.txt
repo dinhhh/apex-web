@@ -1,0 +1,81 @@
+Act as a Principal Full-Stack Engineer and UI/UX Designer. Build a production-ready, mobile-first web application for a local business using Next.js (App Router, TypeScript, Tailwind CSS, and Lucide React).
+
+### Business Context & Brand
+- Business Name: Apex Mobile Car Detailing
+- Location: Greater Sydney, NSW, Australia (Fully mobile service)
+- Value Proposition: Professional on-site detailing, contract partner to top Sydney detailers, 50+ verified 5-star reviews (Google Maps, Airtasker).
+- Brand Tone: Premium, trustworthy, automotive-grade, sleek modern dark/neutral aesthetic.
+
+---
+
+### Tech Stack & Architecture Requirements
+1. Framework: Next.js (latest stable App Router, `src/app` directory layout).
+2. Language: TypeScript with strict typing.
+3. Styling: Tailwind CSS (fully responsive, fluid typography, polished micro-interactions).
+4. Component Structure: Clean modular components (`components/ui`, `components/sections`, `components/layout`).
+5. SEO & Metadata: Complete OpenGraph tags, semantic HTML5, and Schema.org `AutoDetailing` structured data targeting Sydney, Australia.
+
+---
+
+### Core Navigation & Global Layout
+- Sticky Header / Navbar:
+  - Logo: "Apex Mobile Car Detailing"
+  - Nav Links: Home, Book, Contact Us, Our Story, Blogs, Terms & Conditions.
+  - CTA Buttons: Direct Click-to-Call button (`tel:+61...`) and "Book Online" CTA.
+  - Mobile Menu: Smooth, accessible hamburger drawer with quick-action contact buttons.
+- Footer: Complete business details, service areas across Sydney, quick links, operating hours, and standard legal links.
+
+---
+
+### Home Page Specification (`src/app/page.tsx`)
+Build a high-converting landing page containing the following sections:
+
+1. Hero Section:
+   - Punchy headline highlighting mobile convenience across Sydney.
+   - Social proof badges: "50+ 5-Star Reviews on Google & Airtasker" + trust badges.
+   - Primary CTA: "Book a Detail" (scrolls or navigates to `/book`).
+   - Secondary CTA: "Call Now" (direct phone link).
+
+2. Service Packages Section:
+   Implement structured pricing cards with feature checklists, badges (e.g., "Most Popular"), and clear "from $X" pricing:
+   - Deluxe Package (from $90):
+     - Interior: Deep vacuum, pet hair removal, carpet cleaning & stain treatment, console & glove box detailing, streak-free window cleaning, door panel cleaning.
+     - Exterior: Safe pH-neutral snow foam & hand wash, wheels/tyres/arches detailed, door jambs cleaned, scratch-safe microfiber drying.
+   - Luxury Package (from $150):
+     - All Deluxe features included, plus:
+     - Interior: Leather & plastic conditioning (UV protection), steam sanitisation, dedicated leather clean & care.
+     - Exterior: Premium tyre dressing, high-gloss protective wax application.
+   - Pre-Sale Detailing (from $250):
+     - All Luxury features included, plus:
+     - Interior: Short ozone odour treatment (optional).
+     - Exterior: Clay bar paint decontamination, engine bay detail (optional), wash bay clean, minor scratch removal & single-stage machine swirl polish.
+   - Deep Interior Specialty Clean (Custom Pricing / Add-on):
+     - Targeted for heavily soiled interiors & fabric upholstery.
+     - 3-step extraction: Shampoo spray, mechanical agitating brush, commercial-grade heated steam extraction.
+     - Headliner / roof lining stain removal, persistent stain breakdown, optional ozone sanitisation.
+
+3. Interactive Booking / Quick Enquiry Section:
+   - Multi-step or clean single-step form for instant booking requests:
+     - Vehicle make/model/year.
+     - Selected package & optional add-ons.
+     - Suburb in Sydney & preferred date/time.
+     - Customer name, phone number, and notes.
+
+4. Recent Work Gallery (Completed Projects):
+   - Grid or carousel displaying before/after or completed transformations.
+   - Dynamically load or map images from `public/data/completed-cars/` with proper `next/image` optimization, aspect ratios, and hover zoom effects.
+
+5. Final Call-to-Action Banner:
+   - High-contrast banner driving phone inquiries and same-week mobile appointments.
+
+---
+
+### Output Instructions
+1. Provide the recommended directory structure.
+2. Provide the TypeScript interfaces for services, packages, and bookings (`types/detailing.ts`).
+3. Provide the full code for:
+   - Responsive Navigation (`components/Navbar.tsx`)
+   - Services Showcase (`components/PricingSection.tsx`)
+   - Completed Projects Gallery (`components/GallerySection.tsx`)
+   - Main Home Page (`app/page.tsx`)
+4. Ensure all code is production-ready, accessible, and uses modern Tailwind CSS classes without placeholders.
