@@ -18,10 +18,10 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <TrustBar />
-      <PricingSection />
+      {/* <TrustBar /> */}
+      {/* <PricingSection />
       <CeramicCoatingSection />
-      <BookingSection />
+      <BookingSection /> */}
       <GallerySection />
       <FinalCTA />
     </>

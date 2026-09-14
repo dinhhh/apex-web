@@ -25,7 +25,8 @@ export type PackageId =
   | "luxury"
   | "pre-sale"
   | "deep-interior"
-  | "ceramic-coating";
+  | "ceramic-coating"
+  | "cut-polish";
 
 /** A detailing package presented on the pricing section. */
 export interface DetailingPackage {

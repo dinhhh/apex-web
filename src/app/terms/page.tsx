@@ -79,20 +79,22 @@ export default function TermsPage() {
     <section className="py-16 lg:py-24">
       <div className="container">
         <SectionHeading
-          align="left"
           eyebrow="Legal"
           title="Terms & Conditions"
           description="These terms apply to all detailing services provided by Apex Mobile Car Detailing across Greater Sydney, NSW."
         />
 
-        <p className="mt-6 text-sm text-slate-500">Last updated: 7 September 2026</p>
+        <p className="mt-6 text-center text-sm text-slate-500">Last updated: 7 September 2026</p>
 
-        <div className="mt-10 max-w-3xl space-y-10">
+        <div className="mx-auto mt-10 max-w-3xl space-y-10">
           {sections.map((section) => (
             <article key={section.id} id={section.id} className="scroll-mt-24">
               <h2 className="text-lg font-bold text-white">{section.heading}</h2>
               {section.body.map((paragraph, i) => (
-                <p key={i} className="mt-3 text-sm leading-relaxed text-slate-400">
+                <p
+                  key={i}
+                  className="mt-3 text-justify text-sm leading-relaxed text-slate-400 [text-align-last:left] [hyphens:auto]"
+                >
                   {paragraph}
                 </p>
               ))}

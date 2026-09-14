@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { PricingSection } from "@/components/sections/PricingSection";
-import { CeramicCoatingSection } from "@/components/sections/CeramicCoatingSection";
+import Link from "next/link";
 import { BookingForm } from "@/components/sections/BookingForm";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
@@ -14,23 +13,26 @@ export const metadata: Metadata = {
 
 export default function BookPage() {
   return (
-    <>
-      <section className="border-b border-white/10 py-16 lg:py-20">
-        <div className="container">
-          <SectionHeading
-            eyebrow="Book"
-            title="Book your mobile car detail"
-            description="Tell us about your vehicle and where you are in Sydney. We'll confirm a time that suits you — usually within a few hours."
-          />
-          <div className="mx-auto mt-12 max-w-3xl">
-            <Suspense fallback={<div className="surface h-96 animate-pulse" />}>
-              <BookingForm />
-            </Suspense>
-          </div>
+    <section className="py-16 lg:py-24">
+      <div className="container">
+        <SectionHeading
+          eyebrow="Book"
+          title="Book your mobile car detail"
+          description="Tell us about your vehicle and where you are in Sydney. We'll confirm a time that suits you — usually within a few hours."
+        />
+        <p className="mt-4 text-center text-sm text-slate-500">
+          Not sure which package to pick?{" "}
+          <Link href="/services" className="font-semibold text-accent-400 hover:text-accent">
+            Compare services &amp; pricing
+          </Link>
+        </p>
+
+        <div className="mx-auto mt-12 max-w-3xl">
+          <Suspense fallback={<div className="surface h-96 animate-pulse" />}>
+            <BookingForm />
+          </Suspense>
         </div>
-      </section>
-      <PricingSection />
-      <CeramicCoatingSection />
-    </>
+      </div>
+    </section>
   );
 }

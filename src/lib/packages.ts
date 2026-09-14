@@ -116,6 +116,28 @@ export const packages: DetailingPackage[] = [
       { group: "process", label: "5-year written guarantee + aftercare kit and instructions" },
     ],
   },
+  {
+    id: "cut-polish",
+    name: "Cut & Polish",
+    tagline:
+      "Two-step machine paint correction to remove swirls, oxidation and light scratches and restore true gloss.",
+    price: { kind: "from", amount: 399, currency: "AUD" },
+    durationHours: [4, 8],
+    badge: "Paint Correction",
+    highlights: [
+      "Iron buster treatment dissolves embedded brake dust & rail fallout",
+      "Clay bar treatment lifts bonded tar, sap and overspray clay alone can't shift",
+      "2-step machine paint correction (compound + polish) for maximum clarity",
+    ],
+    features: [
+      { group: "process", label: "Pre-wash & pH-neutral snow foam" },
+      { group: "exterior", label: "Iron buster treatment — dissolves embedded brake dust & rail fallout" },
+      { group: "exterior", label: "Clay bar treatment — removes bonded contaminants" },
+      { group: "exterior", label: "Step 1 — Compound cut to remove swirls, oxidation & light scratches" },
+      { group: "exterior", label: "Step 2 — Machine polish for maximum gloss & clarity" },
+      { group: "exterior", label: "Panel wipe-down to remove all polishing oils" },
+    ],
+  },
 ];
 
 export const addOns: AddOn[] = [
@@ -145,14 +167,25 @@ export const addOns: AddOn[] = [
   },
 ];
 
+/** Packages presented in their own dedicated sections rather than the grid. */
+const FEATURED_PACKAGE_IDS = new Set<DetailingPackage["id"]>([
+  "ceramic-coating",
+  "cut-polish",
+]);
+
 /** The four standard detailing tiers shown in the pricing grid. */
 export const corePackages: DetailingPackage[] = packages.filter(
-  (p) => p.id !== "ceramic-coating",
+  (p) => !FEATURED_PACKAGE_IDS.has(p.id),
 );
 
 /** Ceramic coating is presented in its own dedicated section. */
 export const ceramicCoating: DetailingPackage = packages.find(
   (p) => p.id === "ceramic-coating",
+)!;
+
+/** Cut & Polish is presented in its own dedicated section. */
+export const cutAndPolish: DetailingPackage = packages.find(
+  (p) => p.id === "cut-polish",
 )!;
 
 export function priceLabel(pkg: DetailingPackage): string {

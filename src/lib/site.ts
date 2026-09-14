@@ -32,9 +32,10 @@ export const site = {
     "Ryde & Macquarie Park",
   ],
   socials: {
-    google: "https://maps.google.com/?q=Apex+Mobile+Car+Detailing+Sydney",
-    airtasker: "https://www.airtasker.com",
-    instagram: "https://www.instagram.com",
+    instagram:
+      "https://www.instagram.com/apex.cardetail.syd?stkn=bWV1eGxwOWM0ZDR2&utm_source=qr",
+    googleMaps: "https://maps.app.goo.gl/df6AhgSLauX9PK4o6?g_st=ic",
+    tiktok: "https://www.tiktok.com/@apex.car.detailin74",
   },
   reviews: {
     count: 50,
@@ -45,8 +46,9 @@ export const site = {
 
 export const nav = [
   { href: "/", label: "Home" },
-  { href: "/book", label: "Book" },
-  { href: "/contact", label: "Contact Us" },
+  { href: "/services", label: "Services" },
+  // { href: "/book", label: "Booking" },
+  // { href: "/contact", label: "Contact Us" },
   { href: "/our-story", label: "Our Story" },
   { href: "/blog", label: "Blogs" },
   { href: "/terms", label: "Terms & Conditions" },

@@ -1,6 +1,14 @@
 import Link from "next/link";
-import { Clock, Mail, MapPin, Phone, Sparkles } from "lucide-react";
+import { Clock, Map, Mail, MapPin, Phone, Sparkles } from "lucide-react";
+import { InstagramIcon } from "@/components/ui/InstagramIcon";
+import { TikTokIcon } from "@/components/ui/TikTokIcon";
 import { nav, site } from "@/lib/site";
+
+const socialLinks = [
+  { href: site.socials.instagram, label: "Instagram", icon: InstagramIcon },
+  { href: site.socials.tiktok, label: "TikTok", icon: TikTokIcon },
+  { href: site.socials.googleMaps, label: "Find us on Google Maps", icon: Map },
+] as const;
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -23,6 +31,22 @@ export function Footer() {
           <p className="mt-4 text-sm font-semibold text-accent-400">
             {site.reviews.label}
           </p>
+          <ul className="mt-5 flex items-center gap-2">
+            {socialLinks.map(({ href, label, icon: Icon }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  title={label}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-400 transition-colors hover:border-accent/40 hover:text-accent-400"
+                >
+                  <Icon className="h-4 w-4" aria-hidden />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <nav aria-label="Footer">
