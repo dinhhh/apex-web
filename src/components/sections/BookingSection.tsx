@@ -1,11 +1,12 @@
 import { Suspense } from "react";
-import { CalendarClock, MapPinned, ShieldCheck } from "lucide-react";
+import { Camera, CalendarClock, MapPinned, ShieldCheck } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { BookingForm } from "@/components/sections/BookingForm";
 
 const assurances = [
   { icon: CalendarClock, title: "Fast confirmation", body: "We reply with a firm time, usually within a few hours." },
   { icon: MapPinned, title: "We come to you", body: "Home, office or apartment car park anywhere in Sydney." },
+  { icon: Camera, title: "Photos = a sharper quote", body: "Add a few photos of your car's condition so we can quote and prep accurately." },
   { icon: ShieldCheck, title: "No obligation", body: "Your request is an enquiry — nothing is charged until the job is booked." },
 ];
 
@@ -16,7 +17,7 @@ export function BookingSection() {
         <SectionHeading
           eyebrow="Book / Quick Enquiry"
           title="Request your mobile detail"
-          description="Fill in the details below and we'll confirm your on-site appointment. It takes about a minute."
+          description="Fill in the details below — add a few photos of your car for the most accurate quote — and we'll confirm your on-site appointment."
         />
 
         <div className="mt-14 grid gap-8 lg:grid-cols-[1fr_1.4fr]">

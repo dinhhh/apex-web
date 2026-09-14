@@ -38,14 +38,14 @@ Build a high-converting landing page containing the following sections:
 
 2. Service Packages Section:
    Implement structured pricing cards with feature checklists, badges (e.g., "Most Popular"), and clear "from $X" pricing:
-   - Deluxe Package (from $90):
-     - Interior: Deep vacuum, pet hair removal, carpet cleaning & stain treatment, console & glove box detailing, streak-free window cleaning, door panel cleaning.
+   - Deluxe Package (from $89):
+     - Interior: Basic vacuum, pet hair removal, carpet cleaning & stain treatment, console & glove box detailing, streak-free window cleaning, door panel cleaning.
      - Exterior: Safe pH-neutral snow foam & hand wash, wheels/tyres/arches detailed, door jambs cleaned, scratch-safe microfiber drying.
-   - Luxury Package (from $150):
+   - Luxury Package (from $149):
      - All Deluxe features included, plus:
      - Interior: Leather & plastic conditioning (UV protection), steam sanitisation, dedicated leather clean & care.
      - Exterior: Premium tyre dressing, high-gloss protective wax application.
-   - Pre-Sale Detailing (from $250):
+   - Pre-Sale Detailing (from $249):
      - All Luxury features included, plus:
      - Interior: Short ozone odour treatment (optional).
      - Exterior: Clay bar paint decontamination, engine bay detail (optional), wash bay clean, minor scratch removal & single-stage machine swirl polish.

@@ -92,7 +92,7 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="container flex flex-col gap-3 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            &copy; {year} Apex Mobile Car Detailing. ABN 00 000 000 000. All
+            &copy; {year} Apex Mobile Car Detailing. ABN 53 698 053 182. All
             rights reserved.
           </p>
           <div className="flex flex-wrap gap-x-4 gap-y-1">

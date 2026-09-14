@@ -5,7 +5,7 @@ export const packages: DetailingPackage[] = [
     id: "deluxe",
     name: "Deluxe Package",
     tagline: "A thorough interior + exterior reset for regularly maintained cars.",
-    price: { kind: "from", amount: 90, currency: "AUD" },
+    price: { kind: "from", amount: 89, currency: "AUD" },
     durationHours: [1, 1.5],
     highlights: [
       "Basic interior vacuum & pet hair removal",
@@ -29,7 +29,7 @@ export const packages: DetailingPackage[] = [
     id: "luxury",
     name: "Luxury Package",
     tagline: "Everything in Deluxe plus protection, conditioning & sanitisation.",
-    price: { kind: "from", amount: 150, currency: "AUD" },
+    price: { kind: "from", amount: 149, currency: "AUD" },
     durationHours: [1.5, 2],
     badge: "Most Popular",
     featured: true,
@@ -53,8 +53,8 @@ export const packages: DetailingPackage[] = [
     id: "pre-sale",
     name: "Pre-Sale Detailing",
     tagline: "Showroom-ready presentation to maximise your sale price.",
-    price: { kind: "from", amount: 250, currency: "AUD" },
-    durationHours: [4, 6],
+    price: { kind: "from", amount: 249, currency: "AUD" },
+    durationHours: [3, 4],
     badge: "Best Value on Resale",
     highlights: [
       "All Luxury features included",
@@ -95,7 +95,7 @@ export const packages: DetailingPackage[] = [
     name: "Ceramic Coating",
     tagline:
       "Long-term nano-ceramic paint protection with a 5-year written guarantee. Final price depends on your car's current condition.",
-    price: { kind: "from", amount: 850, currency: "AUD" },
+    price: { kind: "from", amount: 849, currency: "AUD" },
     durationHours: [6, 10],
     guaranteeYears: 5,
     badge: "5-Year Guarantee",

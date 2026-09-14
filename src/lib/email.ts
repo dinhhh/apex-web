@@ -40,8 +40,15 @@ const TIME_LABELS: Record<string, string> = {
   afternoon: "Afternoon (2pm–6pm)",
 };
 
-interface EnrichedBooking extends BookingRequest {
+export interface EnrichedBooking extends BookingRequest {
   reference: string;
+}
+
+/** A customer-uploaded photo, ready to attach to the notification email. */
+export interface EmailAttachment {
+  filename: string;
+  content: Buffer;
+  contentType: string;
 }
 
 function summarise(b: EnrichedBooking) {
@@ -61,7 +68,12 @@ function summarise(b: EnrichedBooking) {
   };
 }
 
-function textBody(b: EnrichedBooking): string {
+function photoLine(photoCount: number, note?: string): string {
+  const base = photoCount > 0 ? `${photoCount} attached` : "None";
+  return note ? `${base} — ${note}` : base;
+}
+
+function textBody(b: EnrichedBooking, photoCount: number, note?: string): string {
   const s = summarise(b);
   return [
     `New booking / quote request — ${b.reference}`,
@@ -78,12 +90,13 @@ function textBody(b: EnrichedBooking): string {
     `Email:        ${b.customer.email ?? "—"}`,
     "",
     `Notes:        ${b.notes ?? "—"}`,
+    `Photos:       ${photoLine(photoCount, note)}`,
     "",
     `Submitted:    ${new Date().toLocaleString("en-AU", { timeZone: "Australia/Sydney" })}`,
   ].join("\n");
 }
 
-function htmlBody(b: EnrichedBooking): string {
+function htmlBody(b: EnrichedBooking, photoCount: number, note?: string): string {
   const s = summarise(b);
   const esc = (v: string) =>
     v.replace(/[&<>"]/g, (c) =>
@@ -105,19 +118,33 @@ function htmlBody(b: EnrichedBooking): string {
       ${row("Phone", b.customer.phone)}
       ${row("Email", b.customer.email ?? "—")}
       ${row("Notes", b.notes ?? "—")}
+      ${row("Photos", photoLine(photoCount, note))}
     </table>
     <p style="margin:16px 0 0;color:#94a3b8;font-size:12px">Submitted ${new Date().toLocaleString("en-AU", { timeZone: "Australia/Sydney" })} (Sydney)</p>
   </div>`;
 }
 
-/** Returns true if an email was actually dispatched. */
-export async function sendBookingEmail(booking: EnrichedBooking): Promise<boolean> {
+/**
+ * Sends one email attempt. Throws on SMTP/transport failure — callers that
+ * want a resilient, non-blocking send should use {@link dispatchBookingEmail}
+ * instead of calling this directly.
+ *
+ * @param note Optional extra context appended to the "Photos" line, e.g. to
+ *   flag that some photos couldn't be read or attached.
+ * @returns `true` if an email was actually dispatched, `false` if SMTP isn't
+ *   configured (the payload is logged instead so nothing is lost locally).
+ */
+export async function sendBookingEmail(
+  booking: EnrichedBooking,
+  photos: EmailAttachment[] = [],
+  note?: string,
+): Promise<boolean> {
   const tx = transport();
 
   if (!tx) {
     console.warn(
       "[email] SMTP not configured — booking not emailed. Payload:",
-      textBody(booking),
+      textBody(booking, photos.length, note),
     );
     return false;
   }
@@ -130,9 +157,78 @@ export async function sendBookingEmail(booking: EnrichedBooking): Promise<boolea
       ? `"${booking.customer.name}" <${booking.customer.email}>`
       : undefined,
     subject: `New booking — ${s.packageName} in ${booking.suburb} (${booking.reference})`,
-    text: textBody(booking),
-    html: htmlBody(booking),
+    text: textBody(booking, photos.length, note),
+    html: htmlBody(booking, photos.length, note),
+    attachments: photos.map((p) => ({
+      filename: p.filename,
+      content: p.content,
+      contentType: p.contentType,
+    })),
   });
 
   return true;
+}
+
+/**
+ * Fire-and-forget email dispatch for a booking request.
+ *
+ * Never throws — callers (the API route) should call this *without*
+ * awaiting it so the customer gets their booking reference immediately
+ * instead of waiting on SMTP round-trip latency. Runs on the same Node
+ * process after the response is sent, which is safe on a long-running
+ * server (e.g. `next start` behind PM2); it would need a queue or
+ * `waitUntil` on a serverless/edge host where the runtime can be frozen
+ * right after the response returns.
+ *
+ * If sending with photo attachments fails (a bad/corrupt attachment, an
+ * oversized payload rejected by the SMTP server, etc.) the booking details
+ * are NOT dropped — we retry once, without the attachments, so the lead
+ * still reaches the inbox.
+ *
+ * @param photoReadFailures Count of photos that failed to parse before
+ *   reaching this function (see the API route) — reported in the email so
+ *   nothing is silently lost.
+ */
+export async function dispatchBookingEmail(
+  booking: EnrichedBooking,
+  photos: EmailAttachment[],
+  photoReadFailures = 0,
+): Promise<void> {
+  const readNote =
+    photoReadFailures > 0
+      ? `${photoReadFailures} photo(s) couldn't be read and were skipped.`
+      : undefined;
+
+  try {
+    const sent = await sendBookingEmail(booking, photos, readNote);
+    if (sent) {
+      console.info(
+        `[booking] email sent for ${booking.reference}` +
+          (photos.length > 0 ? ` with ${photos.length} photo(s)` : ""),
+      );
+    }
+  } catch (error) {
+    console.error(
+      `[booking] email dispatch failed for ${booking.reference}` +
+        (photos.length > 0 ? " (with photo attachments)" : ""),
+      error,
+    );
+
+    if (photos.length === 0) return;
+
+    // Don't let an attachment problem cost us the whole lead — resend with
+    // just the booking details and a note explaining the photos are missing.
+    try {
+      await sendBookingEmail(
+        booking,
+        [],
+        `${photos.length} photo(s) failed to send — check server logs for reference ${booking.reference}, or ask the customer to resend them.`,
+      );
+    } catch (fallbackError) {
+      console.error(
+        `[booking] fallback email (without photos) also failed for ${booking.reference}`,
+        fallbackError,
+      );
+    }
+  }
 }
