@@ -31,12 +31,7 @@ export function getGalleryItems(): GalleryItem[] {
     .filter((f) => IMAGE_EXT.has(path.extname(f).toLowerCase()))
     .sort((a, b) => a.localeCompare(b, "en", { numeric: true }))
     .map((file, index) => {
-      const label = humanise(file);
-      // Generic slugs like "apex-completed-detail-01" don't make useful captions.
-      const isGenericSlug = /^(apex|img|image|photo|dsc)\b|\bdetail\b/i.test(label);
-      const caption = isGenericSlug
-        ? `Completed detail #${index + 1} — Sydney`
-        : label;
+      const caption = `Completed detail #${index + 1} — Sydney`;
       return {
         src: `/data/completed-cars/${file}`,
         alt: `${caption} · Apex Mobile Car Detailing, Greater Sydney`,

@@ -14,8 +14,8 @@ export default function ServicesPage() {
   return (
     <>
       <PricingSection />
-      <CeramicCoatingSection />
       <CutPolishSection />
+      <CeramicCoatingSection />
     </>
   );
 }

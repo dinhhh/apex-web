@@ -46,6 +46,8 @@ export function BookingForm({ compact = false }: { compact?: boolean }) {
   const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
   const [photos, setPhotos] = useState<File[]>([]);
   const [photoError, setPhotoError] = useState<string | null>(null);
+  const [parkingConfirmed, setParkingConfirmed] = useState(false);
+  const [utilitiesConfirmed, setUtilitiesConfirmed] = useState(false);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
     "idle",
   );
@@ -147,6 +149,8 @@ export function BookingForm({ compact = false }: { compact?: boolean }) {
         setSelectedAddOns([]);
         setPhotos([]);
         setPhotoError(null);
+        setParkingConfirmed(false);
+        setUtilitiesConfirmed(false);
         if (fileInputRef.current) fileInputRef.current.value = "";
       } else {
         setStatus("error");
@@ -380,8 +384,65 @@ export function BookingForm({ compact = false }: { compact?: boolean }) {
         ) : null}
       </fieldset>
 
+      <fieldset className="mt-8 space-y-3">
+        <legend className="text-sm font-bold text-white">5. Site conditions</legend>
+        <label
+          className={cn(
+            "flex cursor-pointer items-start gap-3 rounded-xl border p-4 text-sm transition-colors",
+            parkingConfirmed
+              ? "border-accent/50 bg-accent/10 text-white"
+              : "border-white/10 bg-ink-800/50 text-slate-300 hover:border-white/20",
+          )}
+        >
+          <input
+            type="checkbox"
+            name="parkingConfirmed"
+            checked={parkingConfirmed}
+            onChange={(e) => setParkingConfirmed(e.target.checked)}
+            className="mt-0.5 h-4 w-4 shrink-0 accent-accent"
+          />
+          <span>
+            <span className="block font-semibold text-white">
+              Car park slot
+            </span>
+            <span className="block text-xs text-slate-500">
+              There&apos;s sufficient space for our vehicle to be
+              legally parked adjacent to mine while the detail is carried out.
+            </span>
+          </span>
+        </label>
+        <label
+          className={cn(
+            "flex cursor-pointer items-start gap-3 rounded-xl border p-4 text-sm transition-colors",
+            utilitiesConfirmed
+              ? "border-accent/50 bg-accent/10 text-white"
+              : "border-white/10 bg-ink-800/50 text-slate-300 hover:border-white/20",
+          )}
+        >
+          <input
+            type="checkbox"
+            name="utilitiesConfirmed"
+            checked={utilitiesConfirmed}
+            onChange={(e) => setUtilitiesConfirmed(e.target.checked)}
+            className="mt-0.5 h-4 w-4 shrink-0 accent-accent"
+          />
+          <span>
+            <span className="block font-semibold text-white">
+              Power &amp; water access
+            </span>
+            <span className="block text-xs text-slate-500">
+              There&apos;s access to a power point and outdoor tap
+              within 20m of the vehicle, with adequate lighting.
+            </span>
+          </span>
+        </label>
+        {fieldError("siteRequirements") ? (
+          <p className="text-xs text-red-400">{fieldError("siteRequirements")}</p>
+        ) : null}
+      </fieldset>
+
       <fieldset className="mt-8 space-y-4">
-        <legend className="text-sm font-bold text-white">5. Your details</legend>
+        <legend className="text-sm font-bold text-white">6. Your details</legend>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="name" className={LABEL}>Full name</label>

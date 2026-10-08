@@ -92,6 +92,9 @@ function textBody(b: EnrichedBooking, photoCount: number, note?: string): string
     `Notes:        ${b.notes ?? "—"}`,
     `Photos:       ${photoLine(photoCount, note)}`,
     "",
+    `Parking space confirmed:     ${b.parkingConfirmed ? "Yes" : "No"}`,
+    `Power & water access confirmed: ${b.utilitiesConfirmed ? "Yes" : "No"}`,
+    "",
     `Submitted:    ${new Date().toLocaleString("en-AU", { timeZone: "Australia/Sydney" })}`,
   ].join("\n");
 }
@@ -119,6 +122,8 @@ function htmlBody(b: EnrichedBooking, photoCount: number, note?: string): string
       ${row("Email", b.customer.email ?? "—")}
       ${row("Notes", b.notes ?? "—")}
       ${row("Photos", photoLine(photoCount, note))}
+      ${row("Parking space confirmed", b.parkingConfirmed ? "Yes" : "No")}
+      ${row("Power & water access confirmed", b.utilitiesConfirmed ? "Yes" : "No")}
     </table>
     <p style="margin:16px 0 0;color:#94a3b8;font-size:12px">Submitted ${new Date().toLocaleString("en-AU", { timeZone: "Australia/Sydney" })} (Sydney)</p>
   </div>`;

@@ -81,6 +81,8 @@ async function parseMultipart(
       email: str("email") || undefined,
     },
     notes: str("notes") || undefined,
+    parkingConfirmed: form.get("parkingConfirmed") === "on",
+    utilitiesConfirmed: form.get("utilitiesConfirmed") === "on",
     company: str("company"),
   };
 

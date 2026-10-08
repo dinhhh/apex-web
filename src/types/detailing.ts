@@ -97,6 +97,16 @@ export interface BookingRequest {
     email?: string;
   };
   notes?: string;
+  /**
+   * Confirms there's sufficient space for our vehicle to legally park
+   * adjacent to the customer's car.
+   */
+  parkingConfirmed: boolean;
+  /**
+   * Confirms access to a power point and outdoor tap within 20m, with
+   * adequate lighting.
+   */
+  utilitiesConfirmed: boolean;
   /** Honeypot field — must be empty for a legitimate submission. */
   company?: string;
 }
