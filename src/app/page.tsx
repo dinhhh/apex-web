@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
+import { StatsSection } from "@/components/sections/StatsSection";
 import { TrustBar } from "@/components/sections/TrustBar";
 import { PricingSection } from "@/components/sections/PricingSection";
 import { CeramicCoatingSection } from "@/components/sections/CeramicCoatingSection";
@@ -18,6 +19,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <StatsSection />
       {/* <TrustBar /> */}
       {/* <PricingSection />
       <CeramicCoatingSection />

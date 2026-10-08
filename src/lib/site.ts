@@ -42,6 +42,11 @@ export const site = {
     rating: 5,
     label: "50+ 5-Star Reviews on Google & Airtasker",
   },
+  stats: {
+    customersServed: 100,
+    googleFiveStarReviews: 30,
+    airtaskerFiveStarReviews: 20,
+  },
 } as const;
 
 export const nav = [
